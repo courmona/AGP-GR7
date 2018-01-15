@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/gnujaxp.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/jcommon-1.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/jfreechart-1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/junit.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/M1IISC/COO/JAVA/TD3/lib-jdbc-jfreechart/servlet.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
