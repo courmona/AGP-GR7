@@ -1,9 +1,5 @@
 package simulation;
-
-import model.AbstractOperation;
-import model.Consultation;
 import model.Transfer;
-import model.Withdraw;
 import bank.Bank;
 
 /**
@@ -47,23 +43,5 @@ public class SimulationUtility {
 		double random = Math.random();
 		return random < priorityClientRate;
 	}
-	public static AbstractOperation getRandomOperation(int serviceTime) {
-		int operationChoice = getRandomNumber(1, 3);
-		AbstractOperation operation;
-		switch (operationChoice) {
-		case 1:
-			operation = new Consultation(serviceTime);
-			break;
-		case 2:
-			operation = new Transfer(serviceTime);
-			break;
-		case 3:
-			operation = new Withdraw(serviceTime);
-			break;
-		default:
-			operation = new Consultation(serviceTime);
-			break;
-		}
-		return operation;
-	}
+	
 }

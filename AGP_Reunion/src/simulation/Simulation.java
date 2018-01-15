@@ -1,11 +1,9 @@
 package simulation;
 
-import java.util.List;
 
 import model.AbstractClient;
 import model.AbstractOperation;
 import model.Client;
-import model.VIPClient;
 
 import org.jfree.ui.RefineryUtilities;
 
@@ -32,84 +30,11 @@ public class Simulation {
 	}
 
 	public void simulate() {
-		int simulationDuration = simulationEntry.getSimulationDuration();
-		int clientArrivalInterval = simulationEntry.getClientArrivalInterval();
-		for (int currentSystemTime = 0; currentSystemTime <= simulationDuration; currentSystemTime++) {
-
-			statisticManager.simulationDurationRecord();
-			SimulationUtility.printBankStat(currentSystemTime, bank);
-
-			updateBank(currentSystemTime);
-
-			boolean newClientArrival = newClientArrival(clientArrivalInterval, currentSystemTime);
-			if (newClientArrival) {
-				int serviceTime = generateRandomServiceTime();
-				AbstractOperation operation = SimulationUtility.getRandomOperation(serviceTime);
-				AbstractClient client;
-				double priorityClientRate = simulationEntry.getPriorityClientRate();
-				if (SimulationUtility.isPriorityClient(priorityClientRate)) {
-					client = new VIPClient(currentSystemTime, operation, simulationEntry.getClientPatienceTime());
-				} else {
-					client = new Client(currentSystemTime, operation, simulationEntry.getClientPatienceTime());
-				}
-
-				Cashier freeCashier = bank.getFreeCashier();
-				if (freeCashier == null) {
-					SimulationUtility.printClientArrival(currentSystemTime, false);
-					Queue queue = bank.getQueue();
-					queue.addQueueLast(client);
-				} else {
-					SimulationUtility.printClientArrival(currentSystemTime, true);
-					serveClient(currentSystemTime, freeCashier, client);
-				}
-			}
-		}
-
+		
 	}
 
-	private void updateBank(int currentSystemTime) {
-		List<Cashier> cashiers = bank.getCashiers();
-		Queue queue = bank.getQueue();
-		for (Cashier cashier : cashiers) {
-
-			if (!cashier.isFree()) {
-				statisticManager.cashierOccupationRecord();
-			}
-
-			cashier.work();
-
-			if (cashier.serviceFinished()) {
-				// Leaving client
-				AbstractClient leavingClient = cashier.getServingClient();
-				leavingClient.setDepartureTime(currentSystemTime);
-				SimulationUtility.printClientDeparture(currentSystemTime);
-				statisticManager.registerServedClient(leavingClient);
-
-				cashier.setServingClient(null);
-
-				// Serve a client in the queue
-				if (!queue.isEmpty()) {
-					AbstractClient nextClient;
-
-					nextClient = queue.findPriorityClient();
-					if (nextClient == null) {
-						nextClient = queue.getQueueFirst();
-					} else {
-						queue.removePriorityClient(nextClient);
-					}
-					serveClient(currentSystemTime, cashier, nextClient);
-				}
-			}
-		}
-
-		// Leaving impatient clients
-		queue.updateClientPatience();
-		List<AbstractClient> impatientClients = queue.removeImpatientClients();
-		for (AbstractClient client : impatientClients) {
-			statisticManager.registerNonServedClient(client);
-			SimulationUtility.printClientDepartureWithoutBeingServed(currentSystemTime);
-		}
-	}
+	
+		
 
 	private void showGraphicalSimulationResult(int idEntry) {
 		PieGraphicalResult pieGraphicalResult = new PieGraphicalResult(idEntry);
