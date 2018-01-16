@@ -5,22 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
-import simulation.SimulationEntry;
 
 public class JdbcPersistence {
-
+	
 	private static String host = "localhost";
-	private static String base = "bank";
+	private static String base = "inheritence";
 	private static String user = "root";
 	private static String password = "";
 	private static String url = "jdbc:mysql://" + host + "/" + base;
 
-	/**
-	 * Lazy singleton instance.
-	 */
-	private Connection connection;
+	private static Connection connection;
 	
 	public JdbcPersistence() {
 		prepareConnection();
@@ -59,7 +53,7 @@ public class JdbcPersistence {
 		}
 	}*/
 
-	private int persistEntry(SimulationEntry simulationEntry) {
+	/*private int persistEntry(SimulationEntry simulationEntry) {
 		int idEntry = 0;
 		try {
 
@@ -90,18 +84,18 @@ public class JdbcPersistence {
 			System.err.println(se.getMessage());
 		}
 		return idEntry;
-	}
+	}*/
 
 
-	public int servedClientCount (int simulationEntryId) {
+	public static int servedClientCount (String reg) {
 		int count = 0;
 		try {
 
-			String selectAddressQuery = "SELECT count(*) AS co FROM client AS c WHERE c.entry_id = ? AND c.is_served = true";
+			String selectAddressQuery = "SELECT ? from inheritence";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(selectAddressQuery);
 
-			preparedStatement.setInt(1, simulationEntryId);
+			preparedStatement.setString(1, reg);
 
 			ResultSet result = preparedStatement.executeQuery();
 
@@ -137,6 +131,10 @@ public class JdbcPersistence {
 			System.err.println(se.getMessage());
 		}
 		return count;
+	}
+	public interface StatisticPersistence {
+
+		int servedClientCount(String dfs);
 	}
 
 }

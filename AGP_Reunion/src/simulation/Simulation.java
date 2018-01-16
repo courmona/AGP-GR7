@@ -10,12 +10,7 @@ import persistence.JdbcPersistence;
  * System simulation. Access point of all related information.
  */
 public class Simulation {
-	private SimulationEntry simulationEntry;
 
-	public Simulation(SimulationEntry simulationEntry) {
-		this.simulationEntry = simulationEntry;
-		int cashierCount = simulationEntry.getCashierCount();
-	}
 
 	public void simulate() {
 		
@@ -34,7 +29,6 @@ public class Simulation {
 	public String simulationResults() {
 		StringBuffer results = new StringBuffer();
 		results.append("########## Simulation results : #####################\n");
-		results.append("Simulation Duration : " + simulationEntry.getSimulationDuration() + "\n");
 		return results.toString();
 	}
 
