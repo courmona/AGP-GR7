@@ -7,11 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.AbstractClient;
 import simulation.SimulationEntry;
-import simulation.StatisticManager;
 
-public class JdbcPersistence implements StatisticPersistence {
+public class JdbcPersistence {
 
 	private static String host = "localhost";
 	private static String base = "bank";
@@ -38,32 +36,7 @@ public class JdbcPersistence implements StatisticPersistence {
 		}
 	}
 
-	@Override
-	public int persist(SimulationEntry simulationEntry, StatisticManager statisticManager) {
-		int idEntry = persistEntry(simulationEntry);
-		if (idEntry != 0) {
-			persistClients(statisticManager, idEntry);
-		}
-		return idEntry;
-
-	}
-
-	private void persistClients(StatisticManager statisticManager, int idEntry) {
-		List<AbstractClient> servedClients = statisticManager.getServedClients();
-
-		for (AbstractClient client : servedClients){
-			addClient(idEntry, client, true);
-		}
-		
-		List<AbstractClient> nonServedClients = statisticManager.getNonServedClients();
-		
-		for (AbstractClient client : nonServedClients){
-			addClient(idEntry, client, false);
-		}
-
-	}
-
-	private void addClient(int idEntry, AbstractClient client, boolean isServed) {
+	/*private void addClient(int idEntry, boolean isServed) {
 		try {
 
 			String insertAddressQuery = "INSERT INTO client (arrival_time, service_start_time, departure_time, "
@@ -84,7 +57,7 @@ public class JdbcPersistence implements StatisticPersistence {
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-	}
+	}*/
 
 	private int persistEntry(SimulationEntry simulationEntry) {
 		int idEntry = 0;
@@ -119,7 +92,7 @@ public class JdbcPersistence implements StatisticPersistence {
 		return idEntry;
 	}
 
-	@Override
+
 	public int servedClientCount (int simulationEntryId) {
 		int count = 0;
 		try {

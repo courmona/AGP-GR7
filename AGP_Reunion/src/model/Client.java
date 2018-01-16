@@ -1,15 +1,24 @@
 package model;
 
-public class Client extends AbstractClient {
 
-	public Client(int arrivalTime, AbstractOperation operation, int patienceTime) {
-		super(arrivalTime, operation, patienceTime);		
+public class Client {
+	private int budget;
+	private String confort;
+	private String site;
+
+	public Client(int budget, String confort, String site) {
+		this.budget = budget;
+		this.confort = confort;
+		this.site = site;
+		
 	}
-
-	@Override
-	public boolean isPriority() {
-		return false;
+	public int getBudget() {
+		return budget;
 	}
-	
-
+	public String getConfort() {
+		return confort;
+	}
+	public String getSite() {
+		return site;
+	}
 }
