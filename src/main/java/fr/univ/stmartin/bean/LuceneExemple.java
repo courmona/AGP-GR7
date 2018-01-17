@@ -88,9 +88,10 @@ public class LuceneExemple {
 		// fermeture seulement quand il n'y a plus besoin d'acceder aux resultats
 		ireader.close();
 		
+		System.out.println(listIdFileContientParole.size() + " documents correspondant");
+
+		System.out.println(" les noms des documents correspondant à la recherche textuelle");
 		
-		System.out.println(listIdFileContientParole.size() + " documents correspondent");
-		System.out.println("liste des id site trouvées sont:");
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
 			
@@ -99,7 +100,6 @@ public class LuceneExemple {
 		jdbcPersistence.afficheNomSite(listIdFileContientParole);
 		
 		
-		 // FROM site
-		// WHERE site.id IN (listIdFileContientParole)
+		 
 	}
 }

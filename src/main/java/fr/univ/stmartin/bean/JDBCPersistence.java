@@ -56,6 +56,8 @@ public class JDBCPersistence {
 			while (rs.next()) {
 				String idSite = rs.getString("idSite");
 				String nomSite = rs.getString("nomSite");
+				
+
 				System.out.println("idSite: " + idSite);
 				System.out.println("nomSite:" + nomSite);
 			}
