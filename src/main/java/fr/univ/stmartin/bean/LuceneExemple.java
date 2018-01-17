@@ -5,6 +5,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import java.io.*;
 import java.nio.file.*;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,7 +64,7 @@ public class LuceneExemple {
 		// 4. Interroger l'index
 		DirectoryReader ireader = DirectoryReader.open(index);
 		IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
-		String reqstr = "plage";
+		String reqstr = "plage louvre cergy";
 
 		// Parsing de la requete en un objet Query
 		// "contenu" est le champ interrogé par defaut si aucun champ n'est precisé
@@ -92,9 +93,13 @@ public class LuceneExemple {
 		System.out.println("liste des id site trouvées sont:");
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
+			
 		}
-		//SELECT *
-		 // FROM voyage
+		JDBCPersistence jdbcPersistence =  new JDBCPersistence();
+		jdbcPersistence.afficheNomSite(listIdFileContientParole);
+		
+		
+		 // FROM site
 		// WHERE site.id IN (listIdFileContientParole)
 	}
 }
