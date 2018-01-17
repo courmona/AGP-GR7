@@ -5,11 +5,8 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import java.io.*;
 import java.nio.file.*;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.*;
@@ -29,7 +26,8 @@ public class LuceneExemple {
 
 		// 2. Creation de l'index
 		// Directory index = new RAMDirectory(); //création index en mémoire
-		Path indexpath = FileSystems.getDefault().getPath("F:\\ARIJ\\site_index"); // localisation index
+		Path indexpath = FileSystems.getDefault().getPath("D:\\Documents\\M1IISC\\AGP\\GF\\site_index"); // localisation
+																											// index
 		Directory index = FSDirectory.open(indexpath); // création index sur disque
 
 		IndexWriterConfig config = new IndexWriterConfig(analyseur);
@@ -37,7 +35,7 @@ public class LuceneExemple {
 
 		// 3. Indexation des documents
 		// Ici on indexe seulement un fichier
-		File dir = new File("F:\\ARIJ\\site_fichiers");
+		File dir = new File("D:\\Documents\\M1IISC\\AGP\\GF\\Sitefichier");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File f : directoryListing) {
@@ -52,11 +50,11 @@ public class LuceneExemple {
 		}
 		w.close();
 
-		//File f = new File("/tmp/.txt");
-		//Document doc = new Document();
-		//doc.add(new Field("nom", f.getName(), TextField.TYPE_STORED));
-		//doc.add(new Field("contenu", new FileReader(f), TextField.TYPE_NOT_STORED));
-		//w.addDocument(doc);
+		// File f = new File("/tmp/.txt");
+		// Document doc = new Document();
+		// doc.add(new Field("nom", f.getName(), TextField.TYPE_STORED));
+		// doc.add(new Field("contenu", new FileReader(f), TextField.TYPE_NOT_STORED));
+		// w.addDocument(doc);
 		// indexer les autres documents de la même façon
 
 		w.close(); // on ferme le index writer après l'indexation de tous les documents
@@ -64,6 +62,7 @@ public class LuceneExemple {
 		// 4. Interroger l'index
 		DirectoryReader ireader = DirectoryReader.open(index);
 		IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
+
 		String reqstr = "plage louvre cergy";
 
 		// Parsing de la requete en un objet Query
@@ -75,31 +74,33 @@ public class LuceneExemple {
 
 		// 6. Affichage resultats
 		Set<String> listIdFileContientParole = new HashSet<>(0);
-		
-		//System.out.println(resultats.totalHits + " documents correspondent");
-		
+
+		// System.out.println(resultats.totalHits + " documents correspondent");
+
 		for (int i = 0; i < resultats.scoreDocs.length; i++) {
 			int docId = resultats.scoreDocs[i].doc;
 			Document d = searcher.doc(docId);
-			//System.out.println(d.get("nom") + ": score " + resultats.scoreDocs[i].score);
+			// System.out.println(d.get("nom") + ": score " + resultats.scoreDocs[i].score);
 			listIdFileContientParole.add(d.get("nom").substring(0, d.get("nom").indexOf(".")));
 		}
 
 		// fermeture seulement quand il n'y a plus besoin d'acceder aux resultats
 		ireader.close();
-		
+
 		System.out.println(listIdFileContientParole.size() + " documents correspondant");
 
 		System.out.println(" les noms des documents correspondant à la recherche textuelle");
-		
+
+		System.out.println(listIdFileContientParole.size() + " documents correspondent aux mots clés : " + reqstr);
+		System.out.println("Liste des id  des sites trouvés par ordre de pertinence:");
+
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
-			
+
 		}
-		JDBCPersistence jdbcPersistence =  new JDBCPersistence();
+
+		JDBCPersistence jdbcPersistence = new JDBCPersistence();
 		jdbcPersistence.afficheNomSite(listIdFileContientParole);
-		
-		
-		 
+
 	}
 }
