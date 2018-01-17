@@ -19,12 +19,13 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `voyage`
 --
-
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `activites`
 --
+CREATE DATABASE IF NOT EXISTS `voyage` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `voyage`;
 
 CREATE TABLE `activites` (
   `idActivites` int(11) NOT NULL,
@@ -46,7 +47,7 @@ INSERT INTO `activites` (`idActivites`, `nomActivites`, `prixActivites`, `idClie
 (7, 'Canioning', 25, 1),
 (8, 'VTT', 10, 2),
 (9, 'Excurssion(moto)', 25, 2),
-(10, 'Jeux d\'actions', 10, 1),
+(10, 'Jeux d actions', 10, 1),
 (11, 'Massage et détente', 30, 2),
 (12, 'Plangée sous marine', 50, 2),
 (13, 'kayak mer ', 50, 2),
@@ -157,12 +158,12 @@ INSERT INTO `site` (`idSite`, `nomSite`, `villeSite`) VALUES
 (9, 'Cascade Blanche', 'Salazie'),
 (10, 'Belvedere de Bois court', 'Tampon'),
 (11, 'Plage de Saint Leu', 'Saint Leu'),
-(12, 'Plage de l\'hermitage Aqua Parc', 'Saint Paul'),
+(12, 'Plage de lhermitage Aqua Parc', 'Saint Paul'),
 (13, 'Montagne des trois Salazes', 'Cilaos'),
 (14, 'Temple Kali Kampal', 'Saint Denis'),
-(15, 'Jardin de l\'Etat', 'Saint Denis'),
+(15, 'Jardin de l Etat', 'Saint Denis'),
 (16, 'Port de Saint Pierre', 'Saint Pierre'),
-(17, 'Notre Dame De l\'Assomption', 'Salazie');
+(17, 'Notre Dame De l Assomption', 'Salazie');
 
 -- --------------------------------------------------------
 
