@@ -61,10 +61,11 @@ public class JDBCPersistence {
 				System.out.println("idSite: " + idSite);
 				System.out.println("nomSite:" + nomSite);
 			}
-
+			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
 	}
+	
 
 }

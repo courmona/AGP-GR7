@@ -26,7 +26,7 @@ public class LuceneExemple {
 
 		// 2. Creation de l'index
 		// Directory index = new RAMDirectory(); //création index en mémoire
-		Path indexpath = FileSystems.getDefault().getPath("F:\\ARIJ\\site_index"); // localisation
+		Path indexpath = FileSystems.getDefault().getPath("C:\\site_index"); // localisation
 																											// index
 		Directory index = FSDirectory.open(indexpath); // création index sur disque
 
@@ -35,7 +35,7 @@ public class LuceneExemple {
 
 		// 3. Indexation des documents
 		// Ici on indexe seulement un fichier
-		File dir = new File("F:\\ARIJ\\site_fichiers");
+		File dir = new File("C:\\site_fichiers");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File f : directoryListing) {
@@ -87,9 +87,8 @@ public class LuceneExemple {
 		// fermeture seulement quand il n'y a plus besoin d'acceder aux resultats
 		ireader.close();
 
-		System.out.println(listIdFileContientParole.size() + " documents correspondant");
+		
 
-		System.out.println(" les noms des documents correspondant à la recherche textuelle");
 
 		System.out.println(listIdFileContientParole.size() + " documents correspondent aux mots clés : " + reqstr);
 		System.out.println("Liste des id  des sites trouvés par ordre de pertinence:");
