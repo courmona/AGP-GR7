@@ -28,7 +28,7 @@ public class LuceneExemple {
 
 		// 2. Creation de l'index
 		// Directory index = new RAMDirectory(); //création index en mémoire
-		Path indexpath = FileSystems.getDefault().getPath("F:\\ARIJ\\site_index"); // localisation index
+		Path indexpath = FileSystems.getDefault().getPath("D:\\Documents\\M1IISC\\AGP\\GF\\site_index"); // localisation index
 		Directory index = FSDirectory.open(indexpath); // création index sur disque
 
 		IndexWriterConfig config = new IndexWriterConfig(analyseur);
@@ -36,7 +36,7 @@ public class LuceneExemple {
 
 		// 3. Indexation des documents
 		// Ici on indexe seulement un fichier
-		File dir = new File("F:\\ARIJ\\site_fichiers");
+		File dir = new File("D:\\Documents\\M1IISC\\AGP\\GF\\Sitefichier");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File f : directoryListing) {
@@ -63,7 +63,7 @@ public class LuceneExemple {
 		// 4. Interroger l'index
 		DirectoryReader ireader = DirectoryReader.open(index);
 		IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
-		String reqstr = "plage";
+		String reqstr = "plage paris seine";
 
 		// Parsing de la requete en un objet Query
 		// "contenu" est le champ interrogé par defaut si aucun champ n'est precisé
@@ -88,13 +88,10 @@ public class LuceneExemple {
 		ireader.close();
 		
 		
-		System.out.println(listIdFileContientParole.size() + " documents correspondent");
-		System.out.println("liste des id site trouvées sont:");
+		System.out.println(listIdFileContientParole.size() + " documents correspondent aux mots clés : "+reqstr);
+		System.out.println("Liste des id  des sites trouvés par ordre de pertinence:");
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
 		}
-		//SELECT *
-		 // FROM voyage
-		// WHERE site.id IN (listIdFileContientParole)
 	}
 }
