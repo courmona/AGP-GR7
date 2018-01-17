@@ -26,7 +26,7 @@ public class LuceneExemple {
 
 		// 2. Creation de l'index
 		// Directory index = new RAMDirectory(); //création index en mémoire
-		Path indexpath = FileSystems.getDefault().getPath("D:\\Documents\\M1IISC\\AGP\\GF\\site_index"); // localisation
+		Path indexpath = FileSystems.getDefault().getPath("F:\\ARIJ\\site_index"); // localisation
 																											// index
 		Directory index = FSDirectory.open(indexpath); // création index sur disque
 
@@ -35,7 +35,7 @@ public class LuceneExemple {
 
 		// 3. Indexation des documents
 		// Ici on indexe seulement un fichier
-		File dir = new File("D:\\Documents\\M1IISC\\AGP\\GF\\Sitefichier");
+		File dir = new File("F:\\ARIJ\\site_fichiers");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File f : directoryListing) {
