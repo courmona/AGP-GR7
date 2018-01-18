@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Offre de Séjour</title>
+</h:head>
+
+<h:body>
+
+	<h:outputStylesheet name="css/style.css" />
+	<h:outputStylesheet name="css/dashboard.css" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+
+	<h:form>
+
+		<h:messages></h:messages>
+		<h:graphicImage value="/resources/img/logo.png" />
+		<br />
+		<center>
+			<b> <h:outputText value="Recherche Offres de Séjour"
+					style="color: red;" />
+			</b>
+		</center>
+		<br />
+
+		<h:panelGrid columns="11" width="100%"
+			styleClass="table table-striped transparentTable gpetablebutton widthtitleactiondosseir styleActionCenter transparentTableWithSelection">
+
+			<h:outputText value="les avtivités: " />
+			<h:selectManyListbox value="#{pageBeans.listActivitechoisi}"
+				converter="activiteConverter">
+
+				<f:selectItems value="#{pageBeans.listActivite}" var="item"
+					itemLabel="#{item.nomActivites}" itemValue="#{item}" />
+			</h:selectManyListbox>
+
+			<h:outputText value="confortable: " />
+			<h:selectBooleanCheckbox value="#{pageBeans.confort}" />
+
+
+
+			<h:outputText value="nombre des nuits: " />
+			<h:inputText value="#{pageBeans.nbrJours}" maxlength="2"
+				required="true" />
+
+			<h:outputText value="budget: " />
+			<h:inputText value="#{pageBeans.budjet}" required="true"
+				requiredMessage="Champs obligatoire" />
+
+
+			<h:outputText value="variation thématique: " />
+			<h:inputText value="#{pageBeans.variationthematique}" />
+
+
+			<h:commandButton value="Recherche"
+				action="#{pageBeans.rechercheOffres}" type="submit" />
+		</h:panelGrid>
+
+
+		<center>
+			<h1>
+				<h:outputText
+					value="Total de possibilitées de voyage à Ile de la Réunion sont #{pageBeans.listVoyageOffre.size()}"
+					rendered="#{pageBeans.listVoyageOffre.size() > 0}"
+					style="color: green;" />
+			</h1>
+		</center>
+		<h:dataTable value="#{pageBeans.listVoyageOffre}" var="voyage"
+			styleClass="table table-striped transparentTable gpetablebutton widthtitleactiondosseir styleActionCenter transparentTableWithSelection"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row"
+			rendered="#{pageBeans.listVoyageOffre.size() > 0}">
+
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Prix: </f:facet>
+				<!-- row record -->
+
+				<h:outputText value="#{voyage.prixTotal}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">voyage destination</f:facet>
+				<h:outputText value="#{voyage.destination.nomDestination}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">voyage hotel</f:facet>
+				<h:outputText value="#{voyage.hotel.nomHotel}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:outputText value="" />
+			</h:column>
+		</h:dataTable>
+
+	</h:form>
+
+</h:body>
+</html>
