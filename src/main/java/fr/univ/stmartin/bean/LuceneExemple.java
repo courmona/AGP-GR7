@@ -99,7 +99,7 @@ public class LuceneExemple {
 		}
 
 		JDBCPersistence jdbcPersistence = new JDBCPersistence();
-		jdbcPersistence.afficheNomSite(listIdFileContientParole);
+		
 
 	}
 }
