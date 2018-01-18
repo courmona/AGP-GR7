@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package fr.univ.stmartin.bean;
 
 import org.apache.lucene.analysis.Analyzer;
