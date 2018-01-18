@@ -27,7 +27,9 @@ public class Destination implements Serializable {
 	@OneToMany(mappedBy="destination")
 	private List<Voyage> voyages;
 
-	public Destination() {
+	public Destination(String nomDestination, int idDestination) {
+		this.nomDestination = nomDestination;
+		this.idDestination = idDestination;
 	}
 
 	public int getIdDestination() {

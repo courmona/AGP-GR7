@@ -23,7 +23,7 @@ public class Client implements Serializable {
 	private String activite;
 
 	@Column(length=50)
-	private String budget;
+	private int budget;
 
 	@Column(length=50)
 	private String confort;
@@ -42,7 +42,12 @@ public class Client implements Serializable {
 	@JoinColumn(name="idVoyage", nullable=false)
 	private Voyage voyage;
 
-	public Client() {
+	public Client(int budget,int nbJourSejour, String confort, String varThematique) {
+		this.budget = budget;
+		this.nbJourSejour = nbJourSejour;
+		this.confort = confort;
+		this.varThematique = varThematique;
+		
 	}
 
 	public int getIdClient() {
@@ -61,11 +66,11 @@ public class Client implements Serializable {
 		this.activite = activite;
 	}
 
-	public String getBudget() {
+	public int getBudget() {
 		return this.budget;
 	}
 
-	public void setBudget(String budget) {
+	public void setBudget(int budget) {
 		this.budget = budget;
 	}
 

@@ -28,7 +28,7 @@ public class LuceneExemple {
 
 		// 2. Creation de l'index
 		// Directory index = new RAMDirectory(); //création index en mémoire
-		Path indexpath = FileSystems.getDefault().getPath("D:\\Documents\\M1IISC\\AGP\\GF\\site_index"); // localisation index
+		Path indexpath = FileSystems.getDefault().getPath("C:\\site_index"); // localisation index
 		Directory index = FSDirectory.open(indexpath); // création index sur disque
 
 		IndexWriterConfig config = new IndexWriterConfig(analyseur);
@@ -36,11 +36,10 @@ public class LuceneExemple {
 
 		// 3. Indexation des documents
 		// Ici on indexe seulement un fichier
-		File dir = new File("D:\\Documents\\M1IISC\\AGP\\GF\\Sitefichier");
+		File dir = new File("C:\\Sitefichier");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File f : directoryListing) {
-				// File f = new File("/tmp/.txt");
 				Document doc = new Document();
 				doc.add(new Field("nom", f.getName(), TextField.TYPE_STORED));
 				doc.add(new Field("contenu", new FileReader(f), TextField.TYPE_NOT_STORED));
@@ -63,7 +62,7 @@ public class LuceneExemple {
 		// 4. Interroger l'index
 		DirectoryReader ireader = DirectoryReader.open(index);
 		IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
-		String reqstr = "plage paris seine";
+		String reqstr = "temple histoire";
 
 		// Parsing de la requete en un objet Query
 		// "contenu" est le champ interrogé par defaut si aucun champ n'est precisé
@@ -87,11 +86,17 @@ public class LuceneExemple {
 		// fermeture seulement quand il n'y a plus besoin d'acceder aux resultats
 		ireader.close();
 		
-		
-		System.out.println(listIdFileContientParole.size() + " documents correspondent aux mots clés : "+reqstr);
-		System.out.println("Liste des id  des sites trouvés par ordre de pertinence:");
+		System.out.println("Il y a "+listIdFileContientParole.size() + " documents correspondant aux mots clés : "+reqstr);
+		System.out.println("Liste des id des sites trouvés par ordre de pertinence:");
+
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
+
 		}
+
+		JDBCPersistence jdbcPersistence = new JDBCPersistence();
+		jdbcPersistence.afficheNomSite(listIdFileContientParole);
+		
+		
 	}
 }

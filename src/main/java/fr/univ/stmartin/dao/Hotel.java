@@ -19,6 +19,7 @@ public class Hotel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int idHotel;
+	private int prixTotal;
 
 	@Column(length=50)
 	private String classement;
@@ -35,8 +36,13 @@ public class Hotel implements Serializable {
 	@OneToMany(mappedBy="hotel")
 	private List<Voyage> voyages;
 
-	public Hotel() {
+
+	public int calculerPrixTotal(/*int idHotel*/) {
+			Client client = new Client(1521,8,"Détente","marche à pied");
+			prixTotal = client.getNbJourSejour() * 250;
+			return prixTotal;
 	}
+	
 
 	public int getIdHotel() {
 		return this.idHotel;
