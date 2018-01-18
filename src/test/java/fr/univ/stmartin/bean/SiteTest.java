@@ -18,4 +18,13 @@ public class SiteTest {
 		
 		Assert.assertTrue(listSites.size() > 0);
 	}
+	@Test
+	public void listeSiteTrouveTest() throws Exception {
+		LuceneExemple luceneExemple = new LuceneExemple();
+		List<Site> listSites = luceneExemple.selectSiteSouhaités("Cilaos","plage louvre cergy");
+		
+		//System.out.println(listhotels.size());
+		
+		Assert.assertTrue(listSites.size() > 0);
+	}
 }

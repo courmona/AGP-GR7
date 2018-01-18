@@ -36,7 +36,7 @@ public class SiteController {
 
 		List<Site> listSites = new ArrayList<>();
 
-		String selectSiteQuery = "SELECT * FROM site where site.villeSite= \"" + ville + "\"";
+		String selectSiteQuery = "SELECT * FROM site where site.villeSite = \"" + ville + "\"";
 
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(selectSiteQuery);
@@ -60,6 +60,7 @@ public class SiteController {
 		}
 		return listSites;
 	}
+	
 	
 	
 	

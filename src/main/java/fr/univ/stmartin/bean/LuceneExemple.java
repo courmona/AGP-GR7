@@ -5,7 +5,9 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.lucene.document.*;
@@ -14,9 +16,14 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.*;
 
-public class LuceneExemple {
+import fr.univ.stmartin.dao.Hotel;
+import fr.univ.stmartin.dao.Site;
 
-	public static void main(String[] args) throws Exception {
+public class LuceneExemple {
+	static SiteController siteController=new SiteController();
+	static String reqstr = "plage louvre cergy";
+	public static Set<String> rechercheSite(String reqstr) throws Exception {
+		Set<String> listIdFileContientParole = new HashSet<>(0);
 
 		int MAX_RESULTS = 100; // nombre max de réponses retournées
 
@@ -63,7 +70,7 @@ public class LuceneExemple {
 		DirectoryReader ireader = DirectoryReader.open(index);
 		IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
 
-		String reqstr = "plage louvre cergy";
+		
 
 		// Parsing de la requete en un objet Query
 		// "contenu" est le champ interrogé par defaut si aucun champ n'est precisé
@@ -73,7 +80,6 @@ public class LuceneExemple {
 		TopDocs resultats = searcher.search(req, MAX_RESULTS); // recherche
 
 		// 6. Affichage resultats
-		Set<String> listIdFileContientParole = new HashSet<>(0);
 
 		// System.out.println(resultats.totalHits + " documents correspondent");
 
@@ -91,15 +97,42 @@ public class LuceneExemple {
 
 
 		System.out.println(listIdFileContientParole.size() + " documents correspondent aux mots clés : " + reqstr);
-		System.out.println("Liste des id  des sites trouvés par ordre de pertinence:");
-
+		
 		for (String siteId : listIdFileContientParole) {
 			System.out.println(siteId);
 
 		}
 
 		JDBCPersistence jdbcPersistence = new JDBCPersistence();
-		
+		return listIdFileContientParole;
 
+	}
+	public static List<Site> selectSiteSouhaités(String ville,String motClé) throws Exception {
+		List<Site> listSitesSouhaitésVille = siteController.selectSiteByVille(ville);;
+		Set<String> listSitesSouhaités = rechercheSite(motClé);
+		List<Site> lisTrouve = new ArrayList<>();
+		for(Site site1 : listSitesSouhaitésVille)
+		{
+			for(String site2 : listSitesSouhaités) {
+				int i = Integer.parseInt(site2); 
+				if (site1.getIdSite()==i)  lisTrouve.add(site1);
+
+			}
+			
+		}
+		System.out.println(lisTrouve.size() + " documents correspondent au recherche globale");
+		
+		for (Site site : lisTrouve) {
+			System.out.println("le client souhaite visté le site "+site.getNomSite() +"qui se trouve à "+ site.getVilleSite());
+
+}
+		
+		return lisTrouve;
+		
+		
+		
+		
+		
+		
 	}
 }
