@@ -7,9 +7,9 @@ public class ConnextionDb {
 
 	private static ConnextionDb mySelf;
 
-	private static String url = "jdbc:mysql://localhost:3306/voyage";
+	private static String url = "jdbc:mysql://localhost:1521/voyage";
 	private static String user = "root";
-	private static String password = "admin";
+	private static String password = "arij";
 	private static Connection connection;
 
 	public static ConnextionDb getInstance() {

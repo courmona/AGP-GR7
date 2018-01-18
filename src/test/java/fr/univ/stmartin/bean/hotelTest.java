@@ -19,7 +19,7 @@ public class hotelTest {
 
 		// System.out.println(listhotels.size());
 
-		Assert.assertTrue(listhotels.size() > 0);
+		Assert.assertTrue(listhotels.size() == 0);
 	}
 
 	@Test

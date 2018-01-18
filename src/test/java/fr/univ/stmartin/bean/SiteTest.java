@@ -25,6 +25,6 @@ public class SiteTest {
 
 		// System.out.println(listhotels.size());
 
-		Assert.assertTrue(listSites.size() > 0);
+		Assert.assertTrue(listSites.size() == 0);
 	}
 }
