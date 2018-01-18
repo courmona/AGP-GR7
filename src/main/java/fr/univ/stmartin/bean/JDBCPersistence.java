@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package fr.univ.stmartin.bean;
 
 import java.lang.reflect.Array;
@@ -10,16 +11,19 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class JDBCPersistence {
-	private static String url = "jdbc:mysql://localhost:1521/voyage";
+	private static String host = "localhost";
+	private static String base = "voyage";
 	private static String user = "root";
-	private static String password = "arij";
+	private static String password = "root";
+	private static String url = "jdbc:mysql://" + host + "/" + base +"?useSSL=false";
+
 	private static Connection connection;
 
 	public JDBCPersistence() {
 		prepareConnection();
 	}
 
-	private void prepareConnection() {
+	private static Connection prepareConnection() {
 		if (connection == null) {
 			try {
 				connection = DriverManager.getConnection(url, user, password);
@@ -27,6 +31,7 @@ public class JDBCPersistence {
 				System.err.println("Connection failed : " + e.getMessage());
 			}
 		}
+		return connection;
 	}
 
 	public void afficheNomSite(Set<String> listIdFileContientParole) throws Exception {
@@ -61,11 +66,46 @@ public class JDBCPersistence {
 				System.out.println("idSite: " + idSite);
 				System.out.println("nomSite:" + nomSite);
 			}
-			preparedStatement.close();
+
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
 	}
-	
+	public static String readString(String confort) {
+		String listedejeux = new String();
+		int prixNuit,nbVoyage=0;
+		String selectAddressQuery = new String();
+		try {
+
+			if (confort == "confortable") {
+				selectAddressQuery = "SELECT nomHotel,prixNuit FROM hotel WHERE classement > 3 ";
+			}
+			else if (confort == "inconfortable") {
+				selectAddressQuery = "SELECT nomHotel,prixNuit FROM hotel WHERE classement < 4";
+			}
+
+			Connection dbConnection = JdbcConnection.getConnection();
+			PreparedStatement preparedStatement = dbConnection.prepareStatement(selectAddressQuery);
+
+			//preparedStatement.setInt(1, budget );
+
+			ResultSet result = preparedStatement.executeQuery();
+			
+			while (result.next()) {
+				nbVoyage++;
+				listedejeux = result.getString("nomHotel");
+				prixNuit = result.getInt("prixNuit");
+				
+				
+				System.out.println("Liste complète des hotels de catégorie "+confort+" € : "+listedejeux+" : Tarif: "+prixNuit+" €");
+			}
+			System.out.println("Il existe "+nbVoyage+" Hotels pour votre confort");
+			preparedStatement.close();
+
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		return listedejeux;
+	}
 
 }
