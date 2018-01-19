@@ -51,6 +51,9 @@ public class Hotel implements Serializable {
 	@Transient
 	private int prixTransportSiteTotal;
 
+	@Transient
+	private List<Site> listSiteAVisite;
+	
 	public Hotel() {
 	}
 
@@ -157,6 +160,14 @@ public class Hotel implements Serializable {
 
 	public void setPrixTransportSiteTotal(int prixTransportSiteTotal) {
 		this.prixTransportSiteTotal = prixTransportSiteTotal;
+	}
+
+	public List<Site> getListSiteAVisite() {
+		return listSiteAVisite;
+	}
+
+	public void setListSiteAVisite(List<Site> listSiteAVisite) {
+		this.listSiteAVisite = listSiteAVisite;
 	}
 
 }

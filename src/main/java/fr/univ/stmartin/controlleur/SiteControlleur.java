@@ -155,4 +155,36 @@ public class SiteControlleur {
 		}
 		return listSites;
 	}
+	
+	public static List<Site> selectSiteById(int idSite) throws Exception {
+
+		List<Site> listSites = new ArrayList<>();
+
+		String selectSiteQuery = "SELECT * FROM site where site.idSite = " + idSite;
+
+		try {
+			PreparedStatement preparedStatement = ConnextionDb.getInstance().getConnection()
+					.prepareStatement(selectSiteQuery);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				Site siteTmp = new Site();
+				siteTmp.setIdSite(rs.getInt("idSite"));
+				siteTmp.setNomSite(rs.getString("nomSite"));
+				siteTmp.setVilleSite(rs.getString("villeSite"));
+
+				siteTmp.setTransport(TransportControlleur.selectTransportById(rs.getInt("idTransport")));
+				listSites.add(siteTmp);
+			}
+
+			preparedStatement.close();
+
+		} catch (SQLException e) {
+			System.err.println("Connection failed : " + e.getMessage());
+			throw e;
+		}
+		return listSites;
+	}
 }

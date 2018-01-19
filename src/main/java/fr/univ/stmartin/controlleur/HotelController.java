@@ -104,6 +104,13 @@ public class HotelController {
 						for (Site site : listSites) {
 							int prixTmp = hotelTmp.getPrixTransportSiteTotal() + site.getTransport().getPrixTransport();
 							hotelTmp.setPrixTransportSiteTotal(prixTmp);
+							
+							List<Site> ltsTmp =  hotelTmp.getListSiteAVisite();
+							if(null == ltsTmp) {
+								ltsTmp = new ArrayList<Site>();
+							}
+							ltsTmp.add(site);
+							hotelTmp.setListSiteAVisite(ltsTmp);
 						}
 						if (!listHotels.contains(hotelTmp))
 							listHotels.add(hotelTmp);
@@ -211,6 +218,13 @@ public class HotelController {
 						for (Site site : listSites) {
 							int prixTmp = hotelTmp.getPrixTransportSiteTotal() + site.getTransport().getPrixTransport();
 							hotelTmp.setPrixTransportSiteTotal(prixTmp);
+							
+							List<Site> ltsTmp =  hotelTmp.getListSiteAVisite();
+							if(null == ltsTmp) {
+								ltsTmp = new ArrayList<Site>();
+							}
+							ltsTmp.add(site);
+							hotelTmp.setListSiteAVisite(ltsTmp);
 						}
 						if (!listHotels.contains(hotelTmp))
 							listHotels.add(hotelTmp);

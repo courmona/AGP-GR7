@@ -68,7 +68,7 @@
 		<center>
 			<h1>
 				<h:outputText
-					value="Total de possibilitées de voyage à Ile de la Réunion sont #{pageBeans.listVoyageOffre.size()}"
+					value="Total de possibilitées de voyage à Ile de la Réunion est #{pageBeans.listVoyageOffre.size()}"
 					rendered="#{pageBeans.listVoyageOffre.size() > 0}"
 					style="color: green;" />
 			</h1>
@@ -97,6 +97,26 @@
 				<h:outputText value="#{voyage.hotel.nomHotel}" />
 			</h:column>
 
+			<h:column >
+				<f:facet name="header">Site à visiter</f:facet>
+				
+				<h:selectManyListbox value="#{voyage.hotel.listSiteAVisite}"
+					converter="siteConverteur" disabled="true" rendered="#{ voyage.hotel.listSiteAVisite.size() &gt; 0}">
+
+					<f:selectItems value="#{voyage.hotel.listSiteAVisite}" var="item"
+						itemLabel="#{item.nomSite}" itemValue="#{item}" />
+				</h:selectManyListbox>
+			</h:column>
+			<h:column >
+				<f:facet name="header">Les activités à faire</f:facet>
+				
+				<h:selectManyListbox value="#{pageBeans.listActivitechoisi}"
+				converter="activiteConverter" disabled="false">
+
+				<f:selectItems value="#{pageBeans.listActivitechoisi}" var="item"
+					itemLabel="#{item.nomActivites}" itemValue="#{item}"  />
+			</h:selectManyListbox>
+			</h:column>
 
 			<h:column>
 				<f:facet name="header"></f:facet>
